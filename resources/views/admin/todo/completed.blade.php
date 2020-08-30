@@ -29,40 +29,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="list-news col-md-12 mx-auto">
-            <div class="row">
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th width="10%">ID</th>
-                            <th width="50%">タイトル</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($todos as $todo)
-                        <tr>
-                            <th>{{ $todo->id }}</th>
-                            <td>{{ \Str::limit($todo->title, 100) }}</td>
-                            <td>
-                                <form action="{{ action('Admin\TodoController@uncomplete') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{ $todo->id }}" />
-                                    <button type="submit" class="btn btn-primary">未完了にする</button>
-                                </form>
-                            </td>
-                            <td>
-                                <div>
-                                    <a href="{{ action('Admin\TodoController@delete', ['id' => $todo->id]) }}">削除</a>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
+
     </div>
 </div>
 @endsection

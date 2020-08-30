@@ -43,11 +43,7 @@
                     </thead>
                     <tbody>
                         @foreach($posts as $todo)
-                        @if (now() > $todo->deadline_date)
-                        <tr class="bg-warning">
-                            @else
                         <tr>
-                            @endif
                             <td>{{ $todo->id }}</td>
                             <td>{{ \Str::limit($todo->title, 100) }}</td>
                             @if ($todo->deadline_date == null)
@@ -68,11 +64,11 @@
                             </td>
                         </tr>
                         @endforeach
-                        </tbody>
-                        </table>
-                        </div>
-                        </div>
-                        </div>
-                        {{ $posts->links() }}
-                        </div>
-                        @endsection
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{ $posts->links() }}
+</div>
+@endsection

@@ -86,6 +86,17 @@ class TodoController extends Controller
         return redirect('admin/todo/');
     }
 
+    /**
+     * 完了済みタスク一覧ページ
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function completed(Request $request)
+    {
+
+    }
+
     public function complete(Request $request)
     {
         $todo = ToDo::find($request->id);
@@ -93,19 +104,6 @@ class TodoController extends Controller
         $todo->save();
 
         return redirect('admin/todo');
-    }
-
-    public function completed(Request $request)
-    {
-        $condTitle = $request->cond_title;
-
-        if ($condTitle != '') {
-            $todos = ToDo::where('title', 'LIKE', "%{$condTitle}%")->where('is_complete', 1)->get();
-        } else {
-            $todos = ToDo::where('is_complete', 1)->get();
-        }
-
-        return view('admin.todo.completed', ['todos' => $todos, 'cond_title' => $condTitle]);
     }
 
     public function uncomplete(Request $request)

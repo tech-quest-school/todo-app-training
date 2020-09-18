@@ -29,7 +29,34 @@
         </div>
     </div>
     <div class="row">
-
+        <div class="list-news col-md-12 mx-auto">
+            <div class="row">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th width="10%">ID</th>
+                            <th width="20%">タイトル</th>
+                            <th width="50%">期限日</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($posts as $todo)
+                        <tr>
+                            <td>{{ $todo->id }}</td>
+                            <td>{{ $todo->title}}</td>
+                            @if ($todo->deadline_date == null)
+                            <td></td>
+                            @else
+                            <td>{{ $todo->deadline_date }}</td>
+                            @endif
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+    {{ $posts->links() }}
 </div>
 @endsection

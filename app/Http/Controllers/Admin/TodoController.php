@@ -48,7 +48,7 @@ class TodoController extends Controller
             $toDoQuery = ToDo::where('is_complete', 0);
         }
 
-        //　一覧画面にページネーションを設定する（5件単位）
+        //  一覧画面にページネーションを設定する（5件単位）
         $toDos = $toDoQuery->paginate(5);
 
         return view('admin.todo.index', ['posts' => $toDos, 'cond_title' => $condTitle]);
@@ -94,7 +94,16 @@ class TodoController extends Controller
      */
     public function completed(Request $request)
     {
-
+        $condTitle = $request->cond_title;
+        //タイトルの検索入力があれば、検索条件を付与する
+        if ($condTitle != '') {
+            $toDoQuery = ToDo::where('title', 'LIKE', "%{$condTitle}%")->where('is_complete', 1);
+        } else {
+            $toDoQuery = ToDo::where('is_complete', 1);
+        }
+        //一覧画面にページネーションを設定する(5件単位)
+        $toDos = $toDoQuery->paginate(5);
+        return view('admin.todo.completed', ['posts' => $toDos, 'cond_title' => $condTitle]);
     }
 
     public function complete(Request $request)

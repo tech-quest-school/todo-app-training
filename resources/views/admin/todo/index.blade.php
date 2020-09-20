@@ -47,9 +47,13 @@
                             <td>{{ $todo->id }}</td>
                             <td>{{ \Str::limit($todo->title, 100) }}</td>
                             @if ($todo->deadline_date == null)
-                            <td></td>
+                                <td></td>
                             @else
-                            <td>{{ $todo->deadline_date->format('Y-m-d') }}</td>
+                                @if ($todo->isExpired())
+                                    <td class="caution">{{ $todo->deadline_date->format('Y-m-d') }}</td>
+                                @else
+                                    <td>{{ $todo->deadline_date->format('Y-m-d') }}</td>
+                                @endif
                             @endif
                             <td>
                                 <form action="{{ action('Admin\TodoController@complete') }}" method="post">

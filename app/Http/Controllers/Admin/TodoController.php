@@ -10,6 +10,7 @@ use App\TodoTag;
 use App\Category;
 use Auth;
 use Carbon\Carbon;
+use DateTime;
 
 class TodoController extends Controller
 {
@@ -39,6 +40,7 @@ class TodoController extends Controller
 
     public function index(Request $request)
     {
+        $today = new DateTime();
         $condTitle = $request->cond_title;
 
         // タイトルの検索入力があれば、検索条件を付与する
@@ -51,7 +53,7 @@ class TodoController extends Controller
         //  一覧画面にページネーションを設定する（5件単位）
         $toDos = $toDoQuery->paginate(5);
 
-        return view('admin.todo.index', ['posts' => $toDos, 'cond_title' => $condTitle]);
+        return view('admin.todo.index', ['posts' => $toDos, 'cond_title' => $condTitle, 'today' => $today]);
     }
 
     public function edit(Request $request)

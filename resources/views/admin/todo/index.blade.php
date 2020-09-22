@@ -43,26 +43,44 @@
                     </thead>
                     <tbody>
                         @foreach($posts as $todo)
-                        <tr>
-                            <td>{{ $todo->id }}</td>
-                            <td>{{ \Str::limit($todo->title, 100) }}</td>
-                            @if ($todo->deadline_date == null)
-                            <td></td>
+                            @if ($todo->isExpired())
+                                <tr class="caution">
+                                    <td>{{ $todo->id }}</td>
+                                    <td>{{ \Str::limit($todo->title, 100) }}</td>
+                                    <td>{{ $todo->deadline_date->format('Y-m-d') }}</td>
+                                    <td>
+                                        <form action="{{ action('Admin\TodoController@complete') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $todo->id }}" />
+                                            <button type="submit" class="btn btn-primary">完了</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <p><a href="{{ action('Admin\TodoController@edit', ['id' => $todo->id]) }}">編集</a></p>
+                                        <p><a href="{{ action('Admin\TodoController@delete', ['id' => $todo->id]) }}">削除</a></p>
+                                    </td>
+                                </tr>
                             @else
-                            <td>{{ $todo->deadline_date->format('Y-m-d') }}</td>
+                                <tr>
+                                    <td>{{ $todo->id }}</td>
+                                    <td>{{ \Str::limit($todo->title, 100) }}</td>
+                                        @if ($todo->deadline_date == null)
+                                        <td></td>
+                                        @else
+                                        <td>{{ $todo->deadline_date->format('Y-m-d') }}</td>
+                                        @endif
+                                        <td>
+                                        <form action="{{ action('Admin\TodoController@complete') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $todo->id }}" />
+                                            <button type="submit" class="btn btn-primary">完了</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <p><a href="{{ action('Admin\TodoController@edit', ['id' => $todo->id]) }}">編集</a></p>
+                                        <p><a href="{{ action('Admin\TodoController@delete', ['id' => $todo->id]) }}">削除</a></p>
+                                </tr>
                             @endif
-                            <td>
-                                <form action="{{ action('Admin\TodoController@complete') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{ $todo->id }}" />
-                                    <button type="submit" class="btn btn-primary">完了</button>
-                                </form>
-                            </td>
-                            <td>
-                                <p><a href="{{ action('Admin\TodoController@edit', ['id' => $todo->id]) }}">編集</a></p>
-                                <p><a href="{{ action('Admin\TodoController@delete', ['id' => $todo->id]) }}">削除</a></p>
-                            </td>
-                        </tr>
                         @endforeach
                     </tbody>
                 </table>

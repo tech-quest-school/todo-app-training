@@ -33,13 +33,17 @@ $ cp .env.example .env
 
 .envファイルが作成できたら、ファイル内のデータベースの接続設定を自身の環境のものに合わせてください。
 
+データベースは「todo」という名称で新たに作成いたしましょう。
+
+データベースの作成方法を忘れてしまった場合は、そちらも「MySQL データベース 作成」などと調べつつ、取り組んでみましょう。
+
 ```
 (略)
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=laravel
+DB_DATABASE=todo
 DB_USERNAME=root
 DB_PASSWORD=
 
